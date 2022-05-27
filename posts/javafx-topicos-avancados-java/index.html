@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="pt-BR" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="generator" content="Jekyll v4.2.2" /><meta property="og:title" content="JavaFX - Tópicos Avançados no Java" /><meta name="author" content="João F. F. Nogueira" /><meta property="og:locale" content="pt_BR" /><meta name="description" content="Baseado nos cursos da Softblue" /><meta property="og:description" content="Baseado nos cursos da Softblue" /><link rel="canonical" href="https://blog.joaonogueira.dev//posts/javafx-topicos-avancados-java/" /><meta property="og:url" content="https://blog.joaonogueira.dev//posts/javafx-topicos-avancados-java/" /><meta property="og:site_name" content="Flutter/Dart Blog" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2021-03-05T09:00:00-03:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="JavaFX - Tópicos Avançados no Java" /><meta name="twitter:site" content="@joaoffnogueira" /><meta name="twitter:creator" content="@João F. F. Nogueira" /><meta name="google-site-verification" content="G-7RCXJ5XJWN" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"João F. F. Nogueira"},"dateModified":"2022-03-22T20:20:28-03:00","datePublished":"2021-03-05T09:00:00-03:00","description":"Baseado nos cursos da Softblue","headline":"JavaFX - Tópicos Avançados no Java","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.joaonogueira.dev//posts/javafx-topicos-avancados-java/"},"url":"https://blog.joaonogueira.dev//posts/javafx-topicos-avancados-java/"}</script><title>JavaFX - Tópicos Avançados no Java | Flutter/Dart Blog</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Flutter/Dart Blog"><meta name="application-name" content="Flutter/Dart Blog"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin="use-credentials"><link rel="dns-prefetch" href="https://www.google-analytics.com"><link rel="preconnect" href="https://www.googletagmanager.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get MODE_ATTR() { return "data-mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } static get ID() { return "mode-toggle"; } constructor() { if (this.hasMode) { if (this.isDarkMode) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } let self = this; /* always follow the system prefers */ this.sysDarkPrefers.addEventListener("change", () => { if (self.hasMode) { if (self.isDarkMode) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } self.notify(); }); } /* constructor() */ get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; } get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } /* get the current mode on screen */ get modeStatus() { if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer)) { return ModeToggle.DARK_MODE; } else { return ModeToggle.LIGHT_MODE; } } setDark() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_ATTR); sessionStorage.removeItem(ModeToggle.MODE_KEY); } /* Notify another plugins that the theme mode has changed */ notify() { window.postMessage({ direction: ModeToggle.ID, message: this.modeStatus }, "*"); } } /* ModeToggle */ const toggle = new ModeToggle(); function flipMode() { if (toggle.hasMode) { if (toggle.isSysDarkPrefer) { if (toggle.isLightMode) { toggle.clearMode(); } else { toggle.setLight(); } } else { if (toggle.isDarkMode) { toggle.clearMode(); } else { toggle.setDark(); } } } else { if (toggle.isSysDarkPrefer) { toggle.setLight(); } else { toggle.setDark(); } } toggle.notify(); } /* flipMode() */ </script><body data-spy="scroll" data-target="#toc" data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" alt="avatar" class="mx-auto"> <img src=" https://raw.githubusercontent.com/joaoffnogueira/joaoffnogueira.github.io/main/assets/img/logo.png " alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title mt-3"> <a href="/">Flutter/Dart Blog</a></div><div class="site-subtitle font-italic">por João Fernando Ferrari Nogueira - Desenvolvedor Flutter | Android | Windows | Web</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIAS</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARQUIVOS</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info ml-xl-3 mr-xl-3 unloaded"></i> <span>SOBRE</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <button class="mode-toggle btn" aria-label="Switch Mode"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/joaoffnogueira" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github"></i> </a> <a href="https://twitter.com/joaoffnogueira" aria-label="twitter" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['dev.joaonogueira','gmail.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper" class="row justify-content-center"><div id="topbar" class="col-11 d-flex h-100 align-items-center justify-content-between"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>JavaFX - Tópicos Avançados no Java</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Buscar..."> </span> <span id="search-cancel" >Cancelar</span></div></div><div id="main-wrapper"><div id="main"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-8"><div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><h1 data-toc-skip>JavaFX - Tópicos Avançados no Java</h1><div class="post-meta text-muted"><div> Por <em> João F. F. Nogueira </em></div><div class="d-flex"><div> <span> Postado em <em class="timeago" data-ts="1614945600" data-toggle="tooltip" data-placement="bottom" data-tooltip-df="llll" > 2021-03-05 </em> </span> <span> Atualizado <em class="timeago" data-ts="1647991228" data-toggle="tooltip" data-placement="bottom" data-tooltip-df="llll" > 2022-03-22 </em> </span> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="1374 palavras"> <em>7 min</em> de leitura</span></div></div></div><div class="post-content"><blockquote><p>Baseado nos cursos da Softblue</p></blockquote><h1 id="fxml">FXML</h1><ul><li>Existem duas formas de criar interfaces gráficas em JavaFX</ul><div class="table-wrapper"><table><thead><tr><th>Programação<th>FXML<tbody><tr><td>O desenho da interface fica misturado com o código Java<td>A interface é definida em formato XML, separada do código Java<tr><td> <td>Facilita a manutenção<tr><td> <td>Não há necessidade de recompilar o código<tr><td> <td>Designers não precisam ter experiência em Java<tr><td> <td>Forma preferida para criar interfaces</table></div><p>Comparando:</p><ul><li>Via programação</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="nc">BorderPane</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BorderPane</span><span class="o">();</span>
+<span class="nc">MenuBar</span> <span class="n">menuBar</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MenuBar</span><span class="o">();</span>
+<span class="n">menuBar</span><span class="o">.</span><span class="na">getMenus</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Menu</span><span class="o">(</span><span class="s">"Arquivo"</span><span class="o">));</span>
+<span class="n">root</span><span class="o">.</span><span class="na">setTop</span><span class="o">(</span><span class="n">menuBar</span><span class="o">);</span>
+<span class="nc">TextArea</span> <span class="n">textArea</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TextArea</span><span class="o">();</span>
+<span class="n">root</span><span class="o">.</span><span class="na">setCenter</span><span class="o">(</span><span class="n">textArea</span><span class="o">);</span>
+<span class="nc">Button</span> <span class="n">btnCancel</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Button</span><span class="o">(</span><span class="s">"Cancelar"</span><span class="o">);</span>
+<span class="nc">Button</span> <span class="n">btnSave</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Button</span><span class="o">(</span><span class="s">"Salvar"</span><span class="o">);</span>
+<span class="nc">HBox</span> <span class="n">buttonBox</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HBox</span><span class="o">();</span>
+<span class="n">buttonBox</span><span class="o">.</span><span class="na">setAlignment</span><span class="o">(</span><span class="nc">Pos</span><span class="o">.</span><span class="na">CENTER_RIGHT</span><span class="o">);</span>
+<span class="n">buttonBox</span><span class="o">.</span><span class="na">setPadding</span><span class="o">(</span><span class="k">new</span> <span class="nc">Insets</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">0</span><span class="o">));</span>
+<span class="nc">HBox</span><span class="o">.</span><span class="na">setMargin</span><span class="o">(</span><span class="n">btnSave</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Insets</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">5</span><span class="o">));</span>
+<span class="n">buttonBox</span><span class="o">.</span><span class="na">getChildren</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">btnCancel</span><span class="o">);</span>
+<span class="n">buttonBox</span><span class="o">.</span><span class="na">getChildren</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">btnSave</span><span class="o">);</span>
+<span class="n">root</span><span class="o">.</span><span class="na">setBottom</span><span class="o">(</span><span class="n">buttonBox</span><span class="o">);</span>
+</pre></table></code></div></div><ul><li>Via FXML</ul><div class="language-xml highlighter-rouge"><div class="code-header"> <span data-label-text="XML"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre><td class="rouge-code"><pre><span class="cp">&lt;?import javafx.scene.layout.BorderPane?&gt;</span>
+<span class="cp">&lt;?import javafx.scene.control.Button?&gt;</span>
+<span class="cp">&lt;?import javafx.scene.control.MenuBar?&gt;</span>
+<span class="cp">&lt;?import javafx.scene.control.Menu?&gt;</span>
+<span class="cp">&lt;?import javafx.scene.control.TextArea?&gt;</span>
+<span class="cp">&lt;?import javafx.scene.layout.HBox?&gt;</span>
+<span class="cp">&lt;?import javafx.geometry.Insets?&gt;</span>
+<span class="nt">&lt;BorderPane</span> <span class="na">xmlns:fx=</span><span class="s">"http://javafx.com/fxml/1"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;top&gt;</span>
+    <span class="nt">&lt;MenuBar&gt;&lt;Menu</span> <span class="na">text=</span><span class="s">"Arquivo"</span> <span class="nt">/&gt;&lt;/MenuBar&gt;</span>
+  <span class="nt">&lt;/top&gt;</span>
+  <span class="nt">&lt;center&gt;&lt;TextArea</span> <span class="nt">/&gt;&lt;/center&gt;</span>
+  <span class="nt">&lt;bottom&gt;</span>
+    <span class="nt">&lt;HBox</span> <span class="na">alignment=</span><span class="s">"CENTER_RIGHT"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;padding&gt;</span>
+        <span class="nt">&lt;Insets</span> <span class="na">top=</span><span class="s">"5"</span> <span class="na">left=</span><span class="s">"0"</span> <span class="na">bottom=</span><span class="s">"5"</span> <span class="na">right=</span><span class="s">"0"</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;/padding&gt;</span>
+      <span class="nt">&lt;Button</span> <span class="na">text=</span><span class="s">"Cancelar"</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;Button</span> <span class="na">text=</span><span class="s">"Salvar"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;HBox.margin&gt;</span>
+          <span class="nt">&lt;Insets</span> <span class="na">top=</span><span class="s">"0"</span> <span class="na">bottom=</span><span class="s">"0"</span> <span class="na">right=</span><span class="s">"0"</span> <span class="na">left=</span><span class="s">"5"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/HBox.margin&gt;</span>
+      <span class="nt">&lt;/Button&gt;</span>
+    <span class="nt">&lt;/HBox&gt;</span>
+  <span class="nt">&lt;/bottom&gt;</span>
+<span class="nt">&lt;/BorderPane&gt;</span>
+</pre></table></code></div></div><h2 id="criando-os-layouts-fxml"><span class="mr-2">Criando os layouts FXML</span><a href="#criando-os-layouts-fxml" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li><p>Os arquivos FXML são baseados no padrão XML</p><li><p>Podem ser criados de duas formas</p></ul><p>– Manualmente, usando um editor de textos ou editor de arquivos XML</p><p>– Através de ferramentas específicas, onde a construção do layout é feita de forma visual</p><ul><li><p>O Scene Builder é uma ferramenta gratuita da Oracle que permite a criação de arquivos FXML</p><li><p>Layouts criados em FXML podem ser facilmente importados para dentro do JavaFX</p></ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="nc">Pane</span> <span class="n">root</span> <span class="o">=</span> <span class="nc">FXMLLoader</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">getClass</span><span class="o">().</span><span class="na">getResource</span><span class="o">(</span><span class="s">"/Layout.fxml"</span><span class="o">));</span>
+</pre></table></code></div></div><h1 id="controller">Controller</h1><ul><li>O controller é uma classe Java que trabalha em conjunto com a estrutura definida no arquivo FXML</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">joaonogueira.javafx</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LayoutController</span> <span class="o">{</span>
+  <span class="c1">//...</span>
+<span class="o">}</span>
+</pre></table></code></div></div><div class="language-xml highlighter-rouge"><div class="code-header"> <span data-label-text="XML"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre><span class="nt">&lt;BorderPane</span> <span class="na">xmlns:fx=</span><span class="s">"http://javafx.com/fxml/1"</span> <span class="na">fx:controller=</span><span class="s">"joaonogueira.javafx.LayoutController"</span><span class="nt">&gt;</span>
+  ...
+<span class="nt">&lt;/BorderPane&gt;</span>
+</pre></table></code></div></div><ul><li><p>O controller pode ter acesso aos controles definidos no arquivo FXML</p><li><p>Também trata os eventos</p></ul><div class="language-xml highlighter-rouge"><div class="code-header"> <span data-label-text="XML"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre>...
+<span class="nt">&lt;TextArea</span> <span class="na">fx:id=</span><span class="s">"textArea"</span> <span class="nt">/&gt;</span>
+...
+<span class="nt">&lt;Button</span> <span class="na">text=</span><span class="s">"Cancelar"</span> <span class="na">onAction=</span><span class="s">"#cancel"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;Button</span> <span class="na">text=</span><span class="s">"Salvar"</span> <span class="na">onAction=</span><span class="s">"#save"</span><span class="nt">&gt;</span>
+...
+</pre></table></code></div></div><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LayoutController</span> <span class="o">{</span>
+  <span class="nd">@FXML</span><span class="c1">//@FXML faz a ligação dos elementos do arquivo FXML com o código Java</span>
+  <span class="kd">private</span> <span class="nc">TextArea</span> <span class="n">textArea</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span><span class="c1">//initialize() é utilizado na inicialização do controller</span>
+  <span class="nd">@FXML</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
+  <span class="nd">@FXML</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cancel</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span><span class="c1">//O parâmetro ActionEventé opcional</span>
+<span class="o">}</span>
+</pre></table></code></div></div><h1 id="aplicando-estilos-com-css">Aplicando estilos com CSS</h1><ul><li><p>O Cascading Style Sheets (CSS) é comumente usado em páginas web</p><li><p>Também é aplicado para alterar o comportamento visual dos painéis e controles do JavaFX</p></ul><p>-styles.css</p><div class="language-css highlighter-rouge"><div class="code-header"> <span data-label-text="CSS"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre><span class="nc">.text-field</span> <span class="p">{</span>
+  <span class="py">-fx-font</span><span class="p">:</span> <span class="m">16px</span> <span class="s1">"Serif"</span><span class="p">;</span>
+  <span class="py">-fx-font-weight</span><span class="p">:</span> <span class="nb">bold</span><span class="p">;</span>
+  <span class="py">-fx-background-color</span><span class="p">:</span> <span class="m">#CCFF99</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#meutexto</span> <span class="p">{</span>
+  <span class="py">-fx-font-size</span><span class="p">:</span> <span class="m">30</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.warning</span> <span class="p">{</span>
+  <span class="py">-fx-background-color</span><span class="p">:</span> <span class="s1">"yellow"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>-Layoult.fxml</p><div class="language-xml highlighter-rouge"><div class="code-header"> <span data-label-text="XML"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre><span class="nt">&lt;TextField</span> <span class="na">text=</span><span class="s">"Estou aprendendo JavaFX!"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;Label</span> <span class="na">text=</span><span class="s">"Meu texto"</span> <span class="na">fx:id=</span><span class="s">"meutexto"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;Label</span> <span class="na">text=</span><span class="s">"Atenção!"</span> <span class="na">styleClass=</span><span class="s">"warning"</span> <span class="nt">/&gt;</span>
+</pre></table></code></div></div><p>-App.java</p><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="nc">TextField</span> <span class="n">textField</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TextField</span><span class="o">(</span><span class="s">"Estou aprendendo JavaFX!"</span><span class="o">);</span>
+<span class="nc">Label</span> <span class="n">label1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Label</span><span class="o">(</span><span class="s">"Meu texto"</span><span class="o">);</span>
+<span class="n">label1</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">"meutexto"</span><span class="o">);</span>
+<span class="nc">Label</span> <span class="n">label2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Label</span><span class="o">(</span><span class="s">"Atenção!"</span><span class="o">);</span>
+<span class="n">label2</span><span class="o">.</span><span class="na">getStyleClass</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="s">"warning"</span><span class="o">);</span>
+</pre></table></code></div></div><ul><li>Usar um arquivo CSS não é obrigatório</ul><p>-Layoult.fxml</p><div class="language-xml highlighter-rouge"><div class="code-header"> <span data-label-text="XML"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="nt">&lt;Label</span> 
+  <span class="na">text=</span><span class="s">"Texto em negrito"</span>
+  <span class="na">style=</span><span class="s">"-fx-font-weight: bold"</span>
+<span class="nt">/&gt;</span>
+</pre></table></code></div></div><p>-App.java</p><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="nc">Label</span> <span class="n">label3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Label</span><span class="o">(</span><span class="s">"Negrito"</span><span class="o">);</span>
+<span class="n">label3</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="s">"-fx-font-weight: bold"</span><span class="o">);</span>
+</pre></table></code></div></div><ul><li>Um arquivo CSS deve ser associado à uma cena para que os estilos sejam reconhecidos</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="nc">Scene</span> <span class="n">scene</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scene</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="mi">800</span><span class="o">,</span> <span class="mi">600</span><span class="o">);</span>
+<span class="n">scene</span><span class="o">.</span><span class="na">getStylesheets</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="s">"styles.css"</span><span class="o">);</span>
+</pre></table></code></div></div><h1 id="properties--binding">Properties &amp; Binding</h1><ul><li>Uma property é uma característica de um objeto</ul><p>– Uma espécie de “atributo mais inteligente”</p><ul><li>O binding permite ligar properties com objetivo de sincronização</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">a</span><span class="o">.</span><span class="na">propA</span><span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">propB</span><span class="o">)</span>
+</pre></table></code></div></div><ul><li><p>Uma property pode ser vista como um atributo, mas tem mais recursos</p><li><p>Tipos de properties</p></ul><p>– StringProperty</p><p>– IntegerProperty</p><p>– DoubleProperty</p><p>– BooleanProperty</p><p>– ObjectProperty</p><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Pessoa</span> <span class="o">{</span><span class="c1">//Os controles do JavaFX também usam properties</span>
+  <span class="kd">private</span> <span class="nc">StringProperty</span> <span class="n">nome</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SimpleStringProperty</span><span class="o">();</span><span class="c1">//nome e idade são properties do JavaFX</span>
+  <span class="kd">private</span> <span class="nc">IntegerProperty</span> <span class="n">idade</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SimpleIntegerProperty</span><span class="o">();</span>
+  <span class="o">...</span>
+<span class="o">}</span>
+</pre></table></code></div></div><h2 id="convenções-no-uso-de-properties"><span class="mr-2">Convenções no uso de properties</span><a href="#convenções-no-uso-de-properties" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Pessoa</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="nc">StringProperty</span> <span class="n">nome</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SimpleStringProperty</span><span class="o">();</span>
+  <span class="kd">private</span> <span class="nc">IntegerProperty</span> <span class="n">idade</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SimpleIntegerProperty</span><span class="o">();</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getNome</span><span class="o">()</span> <span class="o">{</span><span class="c1">//Getters e setters manipulam as properties</span>
+    <span class="k">return</span> <span class="n">nome</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNome</span><span class="o">(</span><span class="nc">String</span> <span class="n">nome</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">nome</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">nome</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getIdade</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">idade</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setIdade</span><span class="o">(</span><span class="kt">int</span> <span class="n">idade</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">idade</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">idade</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="nc">StringProperty</span> <span class="nf">nomeProperty</span><span class="o">()</span> <span class="o">{</span><span class="c1">//Métodos xxxProperty() retornam as properties</span>
+    <span class="k">return</span> <span class="n">nome</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="nc">IntegerProperty</span> <span class="nf">idadeProperty</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">idade</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><h1 id="o-modelo-javabean">O Modelo JavaBean</h1><ul><li>Um JavaBean é uma classe que segue algumas convenções</ul><p>– Construtor padrão, sem parâmetros</p><p>– Métodos getters e setters</p><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Pessoa</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">nome</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kt">int</span> <span class="n">idade</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getNome</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">nome</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNome</span><span class="o">(</span><span class="nc">String</span> <span class="n">nome</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">nome</span> <span class="o">=</span> <span class="n">nome</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getIdade</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">idade</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setIdade</span><span class="o">(</span><span class="kt">int</span> <span class="n">idade</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">idade</span> <span class="o">=</span> <span class="n">idade</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><p>Os nomes dos métodos getters e setters seguem uma convenção bem definida</p><h1 id="adicionando-listeners-a-properties">Adicionando listeners a properties</h1><ul><li>Quando uma property é alterada, ela notifica listeners registrados</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre><span class="n">pessoa</span><span class="o">.</span><span class="na">nomeProperty</span><span class="o">().</span><span class="na">addListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">ChangeListener</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">changed</span><span class="o">(</span><span class="nc">ObservableValue</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">observable</span><span class="o">,</span>
+    <span class="nc">String</span> <span class="n">oldValue</span><span class="o">,</span> <span class="nc">String</span> <span class="n">newValue</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+  <span class="o">}</span>
+<span class="o">});</span>
+
+<span class="n">pessoa</span><span class="o">.</span><span class="na">nomeProperty</span><span class="o">().</span><span class="na">addListener</span><span class="o">((</span><span class="n">observable</span><span class="o">,</span> <span class="n">oldValue</span><span class="o">,</span> <span class="n">newValue</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span><span class="c1">//Expressão lambda</span>
+  <span class="o">...</span>
+<span class="o">});</span>
+</pre></table></code></div></div><p>As classes de properties implementam a interface <code class="language-plaintext highlighter-rouge">ObservableValue&lt;T&gt;</code></p><h1 id="bindings">Bindings</h1><ul><li>Property -&gt; ObservableValue<T></T></ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LayoutController</span> <span class="o">{</span>
+  <span class="nd">@FXML</span>
+  <span class="nc">TextField</span> <span class="n">txtNome</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">Pessoa</span> <span class="n">pessoa</span> <span class="o">=</span> <span class="o">...</span>
+    <span class="n">txtNome</span><span class="o">.</span><span class="na">textProperty</span><span class="o">().</span><span class="na">bind</span><span class="o">(</span><span class="n">pessoa</span><span class="o">.</span><span class="na">nomeProperty</span><span class="o">());</span><span class="c1">//O texto TextField vai ficar sincronizado com o nome definido no objeto</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><h2 id="tipos-de-bindings"><span class="mr-2">Tipos de bindings</span><a href="#tipos-de-bindings" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li>Unidirecional</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">txtNome</span><span class="o">.</span><span class="na">textProperty</span><span class="o">().</span><span class="na">bind</span><span class="o">(</span><span class="n">pessoa</span><span class="o">.</span><span class="na">nomeProperty</span><span class="o">());</span>
+</pre></table></code></div></div><ul><li>Bidirecional</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">txtNome</span><span class="o">.</span><span class="na">textProperty</span><span class="o">().</span><span class="na">bindBidirectional</span><span class="o">(</span><span class="n">pessoa</span><span class="o">.</span><span class="na">nomeProperty</span><span class="o">());</span><span class="c1">//Apenas entre properties</span>
+</pre></table></code></div></div><h1 id="javafx-e-as-threads">JavaFX e as threads</h1><ul><li>O JavaFX possui uma thread principal</ul><p>– JavaFX Application thread</p><p>– UI thread</p><ul><li>Esta thread tem uma série de atribuições: Renderizar Tela, Processar Eventos, …</ul><p>Se esta thread demorar para executar, a aplicação vai parecer lenta</p><p>Solução: realizar o processamento “pesado” em outra thread</p><ul><li>Uma nova thread pode ser criada utilizando qualquer técnica já conhecida</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre><span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">//...</span>
+  <span class="o">}</span>
+<span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+
+<span class="nc">ExecutorService</span> <span class="n">exec</span> <span class="o">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="na">newSingleThreadExecutor</span><span class="o">();</span>
+<span class="n">exec</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="k">new</span> <span class="nc">Callable</span><span class="o">&lt;</span><span class="nc">Void</span><span class="o">&gt;()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nc">Void</span> <span class="nf">call</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="c1">//...</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">});</span>
+</pre></table></code></div></div><h1 id="a-classe-task">A classe Task</h1><ul><li><p>O JavaFX define uma classe <code class="language-plaintext highlighter-rouge">Task</code>, que deve ser estendida</p><li><p>Representa uma tarefa a ser executada em segundo plano</p></ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyTask</span> <span class="kd">extends</span> <span class="nc">Task</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="o">{</span><span class="c1">//O tipo parametrizado define o tipo de retorno de call()</span>
+  <span class="nd">@Override</span>
+  <span class="kd">protected</span> <span class="nc">Integer</span> <span class="nf">call</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="c1">//...</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><ul><li>Ciclo de vida de um objeto <code class="language-plaintext highlighter-rouge">Task</code>:</ul><pre><code class="language-mermaid">graph TD
+    A[objeto criado] --&gt; B(Ready) --&gt;|agendado para execução| C(Scheduled)
+    C --&gt;|começa a executar| D(Running)
+    D --&gt;|finaliza com sucesso| E(Succeeded) --- F[A property value é definida com o valor retornado pela tarefa]
+    D --&gt;|exceção é lançada| G(Failed) --- H[A property exception é definida com a exceção lançada]
+    D --&gt;|usuário cancela a tarefa| I(Canceled)
+</code></pre><h2 id="métodos-da-classe-task"><span class="mr-2">Métodos da classe Task</span><a href="#métodos-da-classe-task" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li>Métodos que podem ser sobrescritos</ul><p>– <code class="language-plaintext highlighter-rouge">done()</code></p><p>– <code class="language-plaintext highlighter-rouge">failed()</code></p><p>– <code class="language-plaintext highlighter-rouge">cancelled()</code></p><p>– <code class="language-plaintext highlighter-rouge">running()</code></p><p>– <code class="language-plaintext highlighter-rouge">scheduled()</code></p><p>– <code class="language-plaintext highlighter-rouge">succeeded()</code></p><ul><li>Métodos de atualização da tarefa</ul><p>– <code class="language-plaintext highlighter-rouge">updateProgress()</code></p><p>– <code class="language-plaintext highlighter-rouge">updateMessage()</code></p><p>– <code class="language-plaintext highlighter-rouge">updateTitle()</code></p><p>Os métodos updateXXX() atualizam o valor das properties do objeto Task</p><h2 id="cancelamento-de-tarefas"><span class="mr-2">Cancelamento de tarefas</span><a href="#cancelamento-de-tarefas" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2><ul><li>O método <code class="language-plaintext highlighter-rouge">cancel()</code> deve ser chamado na task</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">task</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
+</pre></table></code></div></div><ul><li>A tarefa deve verificar periodicamente se ela foi cancelada</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="k">while</span><span class="o">(...)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">isCancelled</span><span class="o">())</span> <span class="o">{</span>
+    <span class="c1">//...</span>
+    <span class="k">break</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><h1 id="a-classe-service">A classe Service</h1><ul><li>É utilizada para executar uma <code class="language-plaintext highlighter-rouge">Task</code></ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyService</span> <span class="kd">extends</span> <span class="nc">Service</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">protected</span> <span class="nc">Task</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="nf">createTask</span><span class="o">()</span> <span class="o">{</span><span class="c1">//Cria a Task que será executada</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nc">Task</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
+      <span class="c1">//...</span>
+    <span class="o">};</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><ul><li>Execução do service</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="nc">MyService</span> <span class="n">service</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyService</span><span class="o">();</span>
+<span class="n">service</span><span class="o">.</span><span class="na">setOnSucceeded</span><span class="o">((</span><span class="n">event</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">...);</span>
+<span class="n">service</span><span class="o">.</span><span class="na">setOnFailed</span><span class="o">((</span><span class="n">event</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">...);</span><span class="c1">//Adiciona listeners ao service, para serem executados pela UI thread</span>
+<span class="n">service</span><span class="o">.</span><span class="na">start</span><span class="o">();</span><span class="c1">//Inicia execução em segundo plano</span>
+</pre></table></code></div></div><h1 id="comunicação-entre-threads">Comunicação entre threads</h1><ul><li>Apenas a UI thread pode manipular elementos da interface gráfica</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copiado!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="nc">Platform</span><span class="o">.</span><span class="na">runLater</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">//...</span>
+  <span class="o">}</span>
+<span class="o">});</span>
+</pre></table></code></div></div><p>Mudanças feitas em properties públicas de uma task são executadas sempre pela UI thread</p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/estudos-faculdade/'>Estudos-faculdade</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/java/" class="post-tag no-text-decoration" >java</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> Esta postagem está licenciada sob <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> pelo autor.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Compartilhar</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=JavaFX+-+T%C3%B3picos+Avan%C3%A7ados+no+Java+-+Flutter%2FDart+Blog&url=https%3A%2F%2Fblog.joaonogueira.dev%2F%2Fposts%2Fjavafx-topicos-avancados-java%2F" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=JavaFX+-+T%C3%B3picos+Avan%C3%A7ados+no+Java+-+Flutter%2FDart+Blog&u=https%3A%2F%2Fblog.joaonogueira.dev%2F%2Fposts%2Fjavafx-topicos-avancados-java%2F" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fblog.joaonogueira.dev%2F%2Fposts%2Fjavafx-topicos-avancados-java%2F&text=JavaFX+-+T%C3%B3picos+Avan%C3%A7ados+no+Java+-+Flutter%2FDart+Blog" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copie o link" data-title-succeed="Link copiado com sucesso!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Atualizados recentemente</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/arquitetura-android/">A arquitetura Android e componentes de aplicativo</a><li><a href="/posts/fluttererror-erro-ao-carregar-assets/">FlutterError - erro ao carregar assets</a><li><a href="/posts/recupera%C3%A7%C3%A3o-banco-dados-seguran%C3%A7a/">Anotações sobre Recuperação de banco de dados e segurança</a><li><a href="/posts/javascript/">Anotações sobre Javascript</a><li><a href="/posts/fundamentos-sistemas-informacao/">Anotações sobre Fundamentos de Sistemas de Informação</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/java/">java</a> <a class="post-tag" href="/tags/jakarta/">jakarta</a> <a class="post-tag" href="/tags/gest%C3%A3o/">gestão</a> <a class="post-tag" href="/tags/web/">web</a> <a class="post-tag" href="/tags/android/">android</a> <a class="post-tag" href="/tags/banco-de-dados/">banco-de-dados</a> <a class="post-tag" href="/tags/seguran%C3%A7a/">segurança</a> <a class="post-tag" href="/tags/css/">css</a> <a class="post-tag" href="/tags/dados/">dados</a> <a class="post-tag" href="/tags/git/">git</a></div></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Conteúdo</div><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div class="col-12 col-lg-11 col-xl-8"><div id="tail-wrapper" class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Leia também</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/programacao-orientada-objetos/"><div class="card-body"> <em class="timeago small" data-ts="1583492400" > 2020-03-06 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Anotações sobre Programação Orientada a Objetos</h3><div class="text-muted small"><p> Paradigmas de programação e história da programação orientada a objetos Por meio do paradigma procedural que geralmente iniciamos o aprendizado na programação, podemos citar como exemplo a linguag...</p></div></div></a></div><div class="card"> <a href="/posts/introducao-hibernate/"><div class="card-body"> <em class="timeago small" data-ts="1636113600" > 2021-11-05 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Introdução ao Hibernate</h3><div class="text-muted small"><p> Desvantagens do JDBC • JDBC permite a integração entre aplicações Java e banco de dados – A forma de uso é a mesma para todos os bancos de dados • JDBC expõe a linguagem SQL ao programador – SQ...</p></div></div></a></div><div class="card"> <a href="/posts/estruturando-aplicacao-web/"><div class="card-body"> <em class="timeago small" data-ts="1636718400" > 2021-11-12 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Estruturando uma Aplicação Web</h3><div class="text-muted small"><p> O Modelo MVC Model – View – Controller. Permite a divisão da aplicação em camadas lógicas. Esta divisão facilita a manutenção e extensão futura do código. graph TD...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/javafx-conceitos-fundamentais-java/" class="btn btn-outline-primary" prompt="Anterior"><p>JavaFX - Conceitos e Fundamentos no Java</p></a> <a href="/posts/formatos-xml-json-java/" class="btn btn-outline-primary" prompt="Próximo"><p>Os formatos XML e JSON no Java</p></a></div></div></div></div><footer class="d-flex w-100 justify-content-center"><div class="d-flex justify-content-between align-items-center text-muted"><div class="footer-left"><p class="mb-0"> © 2022 <a href="https://twitter.com/joaoffnogueira">João F. F. Nogueira</a>. <span data-toggle="tooltip" data-placement="top" title="Exceto onde indicado de outra forma, as postagens do blog neste site são licenciadas sob a Creative Commons Attribution 4.0 International (CC BY 4.0) License pelo autor.">Alguns direitos reservados.</span></p></div><div class="footer-right"><p class="mb-0"> Feito com <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> usando o tema <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> .</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/java/">java</a> <a class="post-tag" href="/tags/jakarta/">jakarta</a> <a class="post-tag" href="/tags/gest%C3%A3o/">gestão</a> <a class="post-tag" href="/tags/web/">web</a> <a class="post-tag" href="/tags/android/">android</a> <a class="post-tag" href="/tags/banco-de-dados/">banco-de-dados</a> <a class="post-tag" href="/tags/seguran%C3%A7a/">segurança</a> <a class="post-tag" href="/tags/css/">css</a> <a class="post-tag" href="/tags/dados/">dados</a> <a class="post-tag" href="/tags/git/">git</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><script src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js"></script> <script> $(function() { function updateMermaid(event) { if (event.source === window && event.data && event.data.direction === ModeToggle.ID) { const mode = event.data.message; if (typeof mermaid === "undefined") { return; } let expectedTheme = (mode === ModeToggle.DARK_MODE? "dark" : "default"); let config = { theme: expectedTheme }; /* Re-render the SVG › <https://github.com/mermaid-js/mermaid/issues/311#issuecomment-332557344> */ $(".mermaid").each(function() { let svgCode = $(this).prev().children().html(); $(this).removeAttr("data-processed"); $(this).html(svgCode); }); mermaid.initialize(config); mermaid.init(undefined, ".mermaid"); } } let initTheme = "default"; if ($("html[data-mode=dark]").length > 0 || ($("html[data-mode]").length == 0 && window.matchMedia("(prefers-color-scheme: dark)").matches ) ) { initTheme = "dark"; } let mermaidConf = { theme: initTheme /* <default|dark|forest|neutral> */ }; /* Markdown converts to HTML */ $("pre").has("code.language-mermaid").each(function() { let svgCode = $(this).children().html(); $(this).addClass("unloaded"); $(this).after(`<div class=\"mermaid\">${svgCode}</div>`); }); mermaid.initialize(mermaidConf); window.addEventListener("message", updateMermaid); }); </script><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! Nenhum resultado encontrado.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lozad/dist/lozad.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/pt.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/app.js"></script> <script defer src="https://www.googletagmanager.com/gtag/js?id=G-7RCXJ5XJWN"></script> <script> document.addEventListener("DOMContentLoaded", function(event) { window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-7RCXJ5XJWN'); }); </script>
